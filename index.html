@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Manuscript Studio | Research. Write. Publish.</title>
+<meta name="description" content="Research design, systematic review & meta-analysis, statistical analysis, manuscript editing, thesis and publication support for medical and dental students, clinicians and researchers.">
+<meta name="theme-color" content="#1F3D2E">
+<meta property="og:title" content="The Manuscript Studio — Research. Write. Publish.">
+<meta property="og:description" content="Structured research and publication support for medical & dental students, clinicians and researchers.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='11' fill='%231F3D2E'/%3E%3Cpath d='M13 9h10l6 6v15a2 2 0 0 1-2 2H13a2 2 0 0 1-2-2V11a2 2 0 0 1 2-2z' fill='%23F6F1E8'/%3E%3Cpath d='M15 21h10M15 25h7' stroke='%23B08A4F' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F1E8;--bg-2:#EFE7D8;--card:#FBF8F3;--ink:#16261E;--green:#1F3D2E;--green-2:#2D5843;
+  --green-soft:#E3EADF;--gold:#B08A4F;--gold-soft:#EADBC2;--muted:#5D6A62;--line:#E1D6C3;
+  --radius:20px;--shadow:0 1px 2px rgba(22,38,30,.04),0 18px 40px -16px rgba(22,38,30,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+svg{display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:500;line-height:1.15;letter-spacing:-.01em;color:var(--green)}
+.container{width:min(1200px,100% - 40px);margin-inline:auto}
+section{padding:110px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.76rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.eyebrow::before{content:"";width:28px;height:1px;background:currentColor}
+.section-head{max-width:720px;margin-bottom:56px}
+.section-head h2{font-size:clamp(2rem,4.2vw,3.1rem);margin:16px 0 18px}
+.section-head p{color:var(--muted);font-size:1.07rem}
+.center{text-align:center;margin-inline:auto}
+.center .eyebrow::after{content:"";width:28px;height:1px;background:currentColor}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 26px;border-radius:999px;font-weight:600;font-size:.95rem;transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .3s,color .3s;white-space:nowrap}
+.btn svg{width:18px;height:18px;transition:transform .3s var(--ease)}
+.btn:hover svg{transform:translateX(4px)}
+.btn-primary{background:var(--green);color:var(--bg);box-shadow:0 12px 26px -12px rgba(31,61,46,.7)}
+.btn-primary:hover{background:var(--green-2);transform:translateY(-2px)}
+.btn-ghost{border:1.5px solid var(--green);color:var(--green)}
+.btn-ghost:hover{background:var(--green);color:var(--bg)}
+.btn-light{background:var(--bg);color:var(--green)}
+.btn-light:hover{background:#fff;transform:translateY(-2px)}
+
+/* Progress + header */
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--gold),var(--green-2));z-index:200}
+.header{position:fixed;inset:0 0 auto;z-index:100;padding:18px 0;transition:background .4s,box-shadow .4s,padding .4s}
+.header.scrolled{background:rgba(246,241,232,.85);backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);box-shadow:0 1px 0 var(--line);padding:10px 0}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand svg{width:42px;height:42px;flex:none}
+.brand-name{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:600;color:var(--green);line-height:1.1}
+.brand-tag{font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:.9rem;font-weight:500;color:var(--muted);position:relative;padding:6px 0;transition:color .3s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1.5px;background:var(--gold);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.nav-links a:hover,.nav-links a.active{color:var(--green)}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1);transform-origin:left}
+.nav-cta{padding:11px 20px;font-size:.86rem}
+.menu-btn{display:none;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);position:relative;background:var(--card)}
+.menu-btn span{position:absolute;left:14px;width:18px;height:1.6px;background:var(--green);transition:transform .35s var(--ease)}
+.menu-btn span:nth-child(1){top:18px}.menu-btn span:nth-child(2){top:26px}
+.menu-open .menu-btn span:nth-child(1){transform:translateY(4px) rotate(45deg)}
+.menu-open .menu-btn span:nth-child(2){transform:translateY(-4px) rotate(-45deg)}
+.mobile-menu{position:fixed;inset:0;background:var(--bg);z-index:90;display:flex;flex-direction:column;justify-content:center;padding:100px 28px 40px;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+.menu-open{overflow:hidden}
+.menu-open .mobile-menu{opacity:1;visibility:visible}
+.m-link{font-family:'Fraunces',serif;font-size:2rem;color:var(--green);padding:12px 0;border-bottom:1px solid var(--line);transform:translateY(20px);opacity:0;transition:transform .5s var(--ease),opacity .5s;transition-delay:calc(var(--i)*55ms)}
+.menu-open .m-link{transform:none;opacity:1}
+.mobile-menu .btn{margin-top:32px}
+
+/* Hero */
+.hero{padding:160px 0 90px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;width:760px;height:760px;right:-220px;top:-220px;background:radial-gradient(circle,rgba(176,138,79,.2),transparent 65%);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+.hero h1{font-size:clamp(2.5rem,6vw,4.5rem);margin:22px 0 24px}
+.hero h1 em{font-style:italic;color:var(--gold);font-weight:400}
+.hero-lead{font-size:1.14rem;color:var(--muted);max-width:560px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin:36px 0 44px}
+.hero-meta{display:flex;gap:40px;flex-wrap:wrap;padding-top:28px;border-top:1px solid var(--line)}
+.hero-meta strong{display:block;font-family:'Fraunces',serif;font-size:1.75rem;color:var(--green);font-weight:500;line-height:1.2}
+.hero-meta span{font-size:.84rem;color:var(--muted)}
+.hero-visual{position:relative;padding:34px 20px}
+.doc{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:0 40px 80px -30px rgba(22,38,30,.35);padding:26px;animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:rotate(-1.5deg) translateY(0)}50%{transform:rotate(-1.5deg) translateY(-12px)}}
+.doc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.dots{display:flex;gap:6px}.dots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.pill{font-size:.7rem;font-weight:600;padding:5px 11px;border-radius:999px;background:var(--green-soft);color:var(--green-2)}
+.doc-label{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.doc h4{font-size:1.12rem;margin-bottom:14px}
+.bar{height:8px;border-radius:6px;background:var(--bg-2);margin-bottom:8px}
+.plot{background:var(--bg);border-radius:14px;padding:14px 12px;margin:18px 0}
+.checks{display:grid;gap:9px}
+.checks div{display:flex;align-items:center;gap:10px;font-size:.85rem}
+.checks svg{width:18px;height:18px;flex:none;color:var(--green-2)}
+.chip{position:absolute;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 14px;font-size:.8rem;box-shadow:var(--shadow);display:flex;align-items:center;gap:10px;animation:float2 6s ease-in-out infinite}
+.chip b{font-weight:600;color:var(--green);display:block;line-height:1.2}
+.chip small{color:var(--muted);font-size:.72rem}
+.chip .ic{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:var(--green);color:var(--bg);flex:none}
+.chip .ic svg{width:16px;height:16px}
+.chip-1{top:0;right:0}
+.chip-2{bottom:6px;left:0;animation-delay:-3s}
+@keyframes float2{50%{transform:translateY(-10px)}}
+
+/* Marquee */
+.marquee{border-block:1px solid var(--line);padding:22px 0;overflow:hidden;background:var(--bg-2)}
+.marquee-track{display:flex;width:max-content;animation:scroll 45s linear infinite}
+.marquee span{font-family:'Fraunces',serif;font-size:1.2rem;color:var(--green);white-space:nowrap;display:flex;align-items:center;gap:44px;padding-right:44px}
+.marquee span::after{content:"✦";color:var(--gold);font-size:.75rem}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* About */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start}
+.about-text p{color:var(--muted);margin-bottom:18px;font-size:1.04rem}
+.about-text .section-head{margin-bottom:24px}
+.values{display:grid;gap:16px}
+.value{display:flex;gap:18px;padding:24px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);transition:transform .4s var(--ease),box-shadow .4s}
+.value:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.icon-box{width:48px;height:48px;border-radius:14px;background:var(--green-soft);color:var(--green);display:grid;place-items:center;flex:none;transition:background .45s,color .45s}
+.icon-box svg{width:22px;height:22px}
+.value h3{font-size:1.18rem;margin-bottom:6px}
+.value p{font-size:.93rem;color:var(--muted)}
+.audience{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:70px}
+.aud{padding:28px 24px;border-radius:var(--radius);background:var(--green);color:var(--bg);position:relative;overflow:hidden;transition:transform .4s var(--ease)}
+.aud:hover{transform:translateY(-5px)}
+.aud:nth-child(even){background:var(--green-2)}
+.aud::after{content:"";position:absolute;width:140px;height:140px;border-radius:50%;border:1px solid rgba(234,219,194,.15);right:-50px;bottom:-50px}
+.aud small{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft)}
+.aud h4{color:var(--bg);font-size:1.22rem;margin:10px 0 8px}
+.aud p{font-size:.87rem;opacity:.78}
+
+/* Services */
+.services{background:var(--bg-2)}
+.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.svc{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px 24px;display:flex;flex-direction:column;cursor:pointer;position:relative;overflow:hidden;text-align:left;transition:transform .45s var(--ease),box-shadow .45s}
+.svc::before{content:"";position:absolute;inset:0;background:linear-gradient(160deg,var(--green),var(--green-2));opacity:0;transition:opacity .45s}
+.svc>*{position:relative}
+.svc:hover{transform:translateY(-6px);box-shadow:0 30px 50px -25px rgba(22,38,30,.5)}
+.svc:hover::before{opacity:1}
+.svc:hover h3,.svc:hover .svc-num{color:var(--bg)}
+.svc:hover p{color:rgba(246,241,232,.75)}
+.svc:hover .icon-box{background:rgba(246,241,232,.12);color:var(--gold-soft)}
+.svc:hover .svc-more{color:var(--gold-soft)}
+.svc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px}
+.svc-num{font-family:'Fraunces',serif;font-size:.95rem;color:var(--gold);transition:color .45s}
+.svc h3{font-size:1.28rem;margin-bottom:10px;transition:color .45s}
+.svc p{color:var(--muted);font-size:.92rem;flex:1;transition:color .45s}
+.svc-more{margin-top:22px;font-weight:600;font-size:.86rem;color:var(--green);display:flex;align-items:center;gap:8px;transition:color .45s}
+.svc-more svg{width:16px;height:16px;transition:transform .3s var(--ease)}
+.svc:hover .svc-more svg{transform:translateX(4px)}
+.svc-cta{background:var(--gold-soft);border:1px dashed var(--gold);border-radius:22px;padding:28px 24px;display:flex;flex-direction:column;justify-content:space-between;gap:20px}
+.svc-cta h3{font-size:1.4rem}
+.svc-cta p{color:var(--muted);font-size:.92rem}
+.integrity-note{display:flex;gap:16px;align-items:flex-start;margin-top:40px;padding:22px 26px;border-radius:18px;background:var(--card);border:1px solid var(--line);color:var(--muted);font-size:.93rem}
+.integrity-note svg{width:24px;height:24px;color:var(--gold);flex:none;margin-top:2px}
+
+/* Process */
+.process{background:var(--green);color:var(--bg);position:relative;overflow:hidden}
+.process::before{content:"";position:absolute;width:600px;height:600px;left:-200px;bottom:-300px;background:radial-gradient(circle,rgba(176,138,79,.22),transparent 65%)}
+.process h2,.process h3{color:var(--bg)}
+.process .section-head p{color:rgba(246,241,232,.72)}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;position:relative}
+.step{padding:28px 22px;border:1px solid rgba(246,241,232,.14);border-radius:20px;background:rgba(246,241,232,.04);transition:background .4s,transform .4s var(--ease)}
+.step:hover{background:rgba(246,241,232,.09);transform:translateY(-4px)}
+.step-n{font-family:'Fraunces',serif;font-size:2.4rem;color:var(--gold);line-height:1;margin-bottom:18px;font-style:italic}
+.step h3{font-size:1.14rem;margin-bottom:8px}
+.step p{font-size:.88rem;color:rgba(246,241,232,.72)}
+
+/* Packages */
+.pkg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:stretch}
+.pkg{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:34px 24px 26px;display:flex;flex-direction:column;position:relative;transition:transform .4s var(--ease),box-shadow .4s}
+.pkg:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.pkg.featured{background:var(--green);color:var(--bg);border-color:var(--green);box-shadow:0 30px 60px -30px rgba(22,38,30,.6)}
+.pkg.featured h3,.pkg.featured .pkg-price{color:var(--bg)}
+.pkg.featured>p,.pkg.featured li{color:rgba(246,241,232,.82)}
+.badge{position:absolute;top:-12px;left:24px;background:var(--gold);color:#fff;font-size:.7rem;font-weight:600;letter-spacing:.06em;padding:5px 12px;border-radius:999px}
+.pkg-for{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.pkg.featured .pkg-for{color:var(--gold-soft)}
+.pkg h3{font-size:1.45rem;margin:10px 0}
+.pkg>p{font-size:.91rem;color:var(--muted);margin-bottom:20px}
+.pkg-price{font-family:'Fraunces',serif;font-size:1.02rem;color:var(--green);padding:14px 0;border-block:1px solid var(--line);margin-bottom:20px}
+.pkg.featured .pkg-price{border-color:rgba(246,241,232,.15)}
+.pkg ul{list-style:none;display:grid;gap:11px;margin-bottom:28px;flex:1;align-content:start}
+.pkg li{display:flex;gap:10px;font-size:.89rem}
+.pkg li::before{content:"✓";flex:none;width:20px;height:20px;border-radius:50%;background:var(--green-soft);color:var(--green);font-size:.68rem;display:grid;place-items:center;margin-top:2px;font-weight:700}
+.pkg.featured li::before{background:rgba(176,138,79,.3);color:var(--gold-soft)}
+.pkg .btn{width:100%}
+.pkg-note{text-align:center;color:var(--muted);margin:40px auto 0;font-size:.95rem;max-width:640px}
+
+/* Insights */
+.insights{background:var(--bg-2)}
+.ins-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.ins{background:var(--card);border-radius:22px;border:1px solid var(--line);overflow:hidden;cursor:pointer;text-align:left;display:flex;flex-direction:column;transition:transform .4s var(--ease),box-shadow .4s}
+.ins:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.ins-art{height:150px;position:relative;overflow:hidden}
+.ins-art .tag{position:absolute;top:18px;left:18px;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:rgba(246,241,232,.15);padding:6px 12px;border-radius:999px;backdrop-filter:blur(4px)}
+.ins-art .glyph{position:absolute;right:18px;bottom:-34px;font-family:'Fraunces',serif;font-size:8rem;font-style:italic;color:rgba(246,241,232,.14);line-height:1;transition:transform .6s var(--ease)}
+.ins:hover .glyph{transform:translateY(-10px) rotate(-4deg)}
+.ins-body{padding:24px;display:flex;flex-direction:column;flex:1}
+.ins-meta{font-size:.78rem;color:var(--muted);margin-bottom:10px}
+.ins h3{font-size:1.18rem;margin-bottom:10px}
+.ins p{font-size:.91rem;color:var(--muted);flex:1}
+
+/* FAQ */
+.faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px}
+.faq-side p{color:var(--muted);margin-bottom:26px}
+details{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;padding:24px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;font-family:'Fraunces',serif;font-size:1.15rem;color:var(--green)}
+summary::-webkit-details-marker{display:none}
+.plus{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);flex:none;position:relative;transition:transform .35s var(--ease),background .3s}
+.plus::before,.plus::after{content:"";position:absolute;left:50%;top:50%;width:11px;height:1.5px;background:var(--green);transform:translate(-50%,-50%)}
+.plus::after{transform:translate(-50%,-50%) rotate(90deg)}
+details[open] .plus{transform:rotate(45deg);background:var(--green-soft)}
+.faq-a{padding:0 44px 24px 0;color:var(--muted)}
+details[open] .faq-a{animation:fadeIn .45s var(--ease)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-6px)}}
+
+/* Contact */
+.contact{background:var(--green);color:var(--bg);position:relative;overflow:hidden}
+.contact::before{content:"";position:absolute;width:700px;height:700px;right:-250px;top:-250px;background:radial-gradient(circle,rgba(176,138,79,.22),transparent 65%)}
+.contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:start;position:relative}
+.contact h2{color:var(--bg);font-size:clamp(2.2rem,4.5vw,3.3rem);margin:16px 0 20px}
+.contact-info>p{color:rgba(246,241,232,.76);font-size:1.04rem}
+.contact-links{display:grid;gap:12px;margin-top:34px}
+.c-link{display:flex;align-items:center;gap:14px;padding:16px 18px;border:1px solid rgba(246,241,232,.15);border-radius:16px;transition:background .3s,transform .3s var(--ease)}
+.c-link:hover{background:rgba(246,241,232,.07);transform:translateX(4px)}
+.c-link .ic{width:44px;height:44px;border-radius:12px;background:rgba(246,241,232,.1);display:grid;place-items:center;color:var(--gold-soft);flex:none}
+.c-link .ic svg{width:20px;height:20px}
+.c-link small{display:block;font-size:.72rem;opacity:.6;letter-spacing:.1em;text-transform:uppercase}
+.form{background:var(--bg);color:var(--ink);border-radius:26px;padding:36px;box-shadow:0 40px 80px -30px rgba(0,0,0,.45)}
+.form h3{font-size:1.5rem;margin-bottom:6px}
+.form>p{color:var(--muted);font-size:.92rem;margin-bottom:24px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field label{font-size:.78rem;font-weight:600;color:var(--green);letter-spacing:.02em}
+.field input,.field select,.field textarea{font:inherit;font-size:1rem;padding:13px 15px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);width:100%;transition:border-color .3s,box-shadow .3s;-webkit-appearance:none;appearance:none}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231F3D2E' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:16px;padding-right:40px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--green-2);box-shadow:0 0 0 4px rgba(45,88,67,.12)}
+.field textarea{resize:vertical;min-height:110px}
+.form .btn{width:100%;margin-top:6px}
+.form-note{font-size:.78rem;color:var(--muted);text-align:center;margin-top:12px}
+.form-success{display:none;margin-top:14px;padding:12px 16px;border-radius:12px;background:var(--green-soft);color:var(--green);font-size:.9rem;text-align:center}
+.form-success.show{display:block;animation:fadeIn .4s var(--ease)}
+
+/* Footer */
+.footer{background:#12231A;color:rgba(246,241,232,.68);padding:70px 0 30px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:50px;border-bottom:1px solid rgba(246,241,232,.1)}
+.footer .brand-name{color:var(--bg)}
+.footer .brand-tag{color:rgba(246,241,232,.5)}
+.footer h5{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:18px;font-weight:600}
+.footer ul{list-style:none;display:grid;gap:10px;font-size:.91rem}
+.footer a{transition:color .3s}
+.footer a:hover{color:var(--bg)}
+.foot-about{font-size:.9rem;margin-top:18px;max-width:340px}
+.foot-bottom{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:26px;font-size:.8rem}
+
+/* Floating button */
+.fab{position:fixed;right:20px;bottom:20px;z-index:80;height:56px;padding:0 22px 0 18px;border-radius:999px;background:var(--green);color:var(--bg);display:flex;align-items:center;gap:10px;font-weight:600;font-size:.9rem;box-shadow:0 14px 30px -10px rgba(22,38,30,.6);transform:translateY(120px);transition:transform .5s var(--ease),background .3s}
+.fab.show{transform:none}
+.fab:hover{background:var(--green-2)}
+.fab svg{width:20px;height:20px}
+
+/* Modal */
+.modal{position:fixed;inset:0;z-index:300;display:grid;place-items:center;padding:20px;visibility:hidden;opacity:0;transition:opacity .35s,visibility .35s}
+.modal.open{visibility:visible;opacity:1}
+.modal-bg{position:absolute;inset:0;background:rgba(18,35,26,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.modal-box{position:relative;background:var(--bg);border-radius:26px;max-width:660px;width:100%;max-height:88vh;overflow:auto;padding:40px;transform:translateY(30px) scale(.97);transition:transform .45s var(--ease);overscroll-behavior:contain}
+.modal.open .modal-box{transform:none}
+.modal-close{position:sticky;float:right;top:0;margin:-16px -16px 0 0;width:40px;height:40px;border-radius:50%;background:var(--bg-2);font-size:1.4rem;line-height:1;color:var(--green);z-index:2}
+.modal-box h3{font-size:clamp(1.5rem,4vw,1.9rem);margin:12px 0}
+.modal-box p{color:var(--muted);margin-bottom:16px}
+.modal-box h4{font-size:1.1rem;margin:22px 0 8px}
+.modal-list{list-style:none;display:grid;gap:10px;margin:20px 0 28px}
+.modal-list li{display:flex;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--line);border-radius:12px;font-size:.93rem}
+.modal-list li::before{content:"✓";color:var(--gold);font-weight:700}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}
+.reveal.in{opacity:1;transform:none}
+
+/* Responsive */
+@media(max-width:1100px){.svc-grid,.pkg-grid{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:repeat(3,1fr)}.nav-links{gap:20px}}
+@media(max-width:980px){
+  .nav-links,.nav-cta{display:none}.menu-btn{display:block}
+  .hero-grid,.about-grid,.faq-grid,.contact-grid{grid-template-columns:1fr}
+  .about-grid,.faq-grid,.contact-grid{gap:44px}
+  .hero-visual{max-width:480px;width:100%;margin:10px auto 0}
+  .audience,.ins-grid{grid-template-columns:repeat(2,1fr)}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  section{padding:86px 0}
+}
+@media(max-width:640px){
+  .hero{padding:118px 0 60px}
+  .svc-grid,.pkg-grid,.ins-grid,.audience,.steps,.row{grid-template-columns:1fr}
+  .row{gap:0}
+  .pkg-grid{gap:28px}
+  .form{padding:28px 20px}
+  .hero-actions .btn{flex:1 1 100%}
+  .hero-meta{gap:24px}
+  .hero-visual{padding:30px 4px}
+  .foot-grid{grid-template-columns:1fr}
+  section{padding:72px 0}
+  .section-head{margin-bottom:38px}
+  .fab span{display:none}.fab{padding:0;width:56px;justify-content:center}
+  .modal{place-items:end center;padding:0}
+  .modal-box{border-radius:26px 26px 0 0;padding:32px 22px 40px;max-height:90vh;transform:translateY(100%)}
+  .integrity-note{padding:18px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<!-- Header -->
+<header class="header" id="header">
+  <div class="container nav">
+    <a href="#home" class="brand" aria-label="The Manuscript Studio home">
+      <svg viewBox="0 0 40 40"><rect width="40" height="40" rx="11" fill="#1F3D2E"/><path d="M13 9h10l6 6v15a2 2 0 0 1-2 2H13a2 2 0 0 1-2-2V11a2 2 0 0 1 2-2z" fill="#F6F1E8"/><path d="M23 9v6h6" fill="#EADBC2"/><path d="M15 21h10M15 25h7" stroke="#B08A4F" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <div><div class="brand-name">The Manuscript Studio</div><div class="brand-tag">Research · Write · Publish</div></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#packages">Packages</a></li>
+      <li><a href="#insights">Research Insights</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ul>
+    <a href="#contact" class="btn btn-primary nav-cta">Discuss Your Project</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+  <a class="m-link" style="--i:1" href="#home">Home</a>
+  <a class="m-link" style="--i:2" href="#about">About Us</a>
+  <a class="m-link" style="--i:3" href="#services">Services</a>
+  <a class="m-link" style="--i:4" href="#packages">Packages</a>
+  <a class="m-link" style="--i:5" href="#insights">Research Insights</a>
+  <a class="m-link" style="--i:6" href="#contact">Contact Us</a>
+  <a href="#contact" class="btn btn-primary m-close">Discuss Your Project</a>
+</nav>
+
+<main>
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow reveal">Research support for students, clinicians &amp; researchers</span>
+      <h1 class="reveal" style="--d:.1s">Your research deserves to be <em>presented well.</em></h1>
+      <p class="hero-lead reveal" style="--d:.2s">From focused research questions to systematic reviews, statistical analysis and manuscript preparation, get structured, expert support at every stage of your research journey.</p>
+      <div class="hero-actions reveal" style="--d:.3s">
+        <a href="#services" class="btn btn-primary">Explore Services <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#contact" class="btn btn-ghost">Discuss Your Project</a>
+      </div>
+      <div class="hero-meta reveal" style="--d:.4s">
+        <div><strong>7</strong><span>Specialised service areas</span></div>
+        <div><strong>1 : 1</strong><span>Personalised guidance</span></div>
+        <div><strong>End-to-end</strong><span>From idea to publication</span></div>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal" style="--d:.25s" aria-hidden="true">
+      <div class="doc">
+        <div class="doc-top"><div class="dots"><i></i><i></i><i></i></div><span class="pill">Draft v3 · In progress</span></div>
+        <div class="doc-label">Systematic review &amp; meta-analysis</div>
+        <h4>Effect of intervention on clinical outcomes</h4>
+        <div class="bar" style="width:92%"></div><div class="bar" style="width:78%"></div><div class="bar" style="width:64%"></div>
+        <div class="plot">
+          <svg viewBox="0 0 300 120" width="100%">
+            <line x1="150" y1="4" x2="150" y2="100" stroke="#B08A4F" stroke-dasharray="3 3"/>
+            <g stroke="#2D5843" stroke-width="1.6">
+              <line x1="92" y1="14" x2="168" y2="14"/><line x1="110" y1="32" x2="158" y2="32"/>
+              <line x1="80" y1="50" x2="146" y2="50"/><line x1="118" y1="68" x2="176" y2="68"/>
+            </g>
+            <g fill="#1F3D2E"><rect x="124" y="10" width="8" height="8"/><rect x="129" y="27" width="10" height="10"/><rect x="110" y="46" width="7" height="7"/><rect x="141" y="64" width="9" height="9"/></g>
+            <polygon points="108,90 127,84 146,90 127,96" fill="#B08A4F"/>
+            <text x="60" y="116" font-size="9" fill="#5D6A62" font-family="Inter">Favours intervention</text>
+            <text x="160" y="116" font-size="9" fill="#5D6A62" font-family="Inter">Favours control</text>
+          </svg>
+        </div>
+        <div class="checks">
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>PRISMA 2020 flow diagram</div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>Risk-of-bias assessment</div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>GRADE certainty of evidence</div>
+        </div>
+      </div>
+      <div class="chip chip-1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 6-6"/></svg></span><div><b>Analysis complete</b><small>Results interpreted</small></div></div>
+      <div class="chip chip-2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg></span><div><b>Submission-ready</b><small>Journal formatted</small></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee"></div></div>
+
+<!-- About -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-head reveal">
+          <span class="eyebrow">About us</span>
+          <h2>Research support built on clarity, rigour and integrity.</h2>
+        </div>
+        <p class="reveal">The Manuscript Studio was created for medical and dental students, postgraduate residents, clinicians and researchers who have valuable ideas but limited time to navigate the complex path from research question to publication.</p>
+        <p class="reveal">We combine methodological expertise, statistical know-how and careful academic editing to make your research more structured, transparent and publishable. Whether you are starting your first project, completing a thesis or preparing a systematic review, we work alongside you and help you understand every step.</p>
+        <p class="reveal">Our approach is collaborative: you stay the author and owner of your work, and we provide the guidance, analysis support and polish that help it reach its full potential.</p>
+      </div>
+      <div class="values">
+        <div class="value reveal"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></div><div><h3>Methodological rigour</h3><p>Evidence-based frameworks and recognised reporting guidelines such as PRISMA, CONSORT and STROBE, applied to every project.</p></div></div>
+        <div class="value reveal" style="--d:.1s"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div><div><h3>Clear communication</h3><p>We explain the why behind every decision, so you can confidently present and defend your work before guides, examiners and reviewers.</p></div></div>
+        <div class="value reveal" style="--d:.2s"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></div><div><h3>Integrity &amp; confidentiality</h3><p>Your data and ideas are handled confidentially, and your ownership of your academic work always stays central.</p></div></div>
+      </div>
+    </div>
+
+    <div class="audience">
+      <div class="aud reveal"><small>Undergraduate</small><h4>MBBS &amp; BDS students</h4><p>First research projects, ICMR-STS style studies, posters and case reports.</p></div>
+      <div class="aud reveal" style="--d:.08s"><small>Postgraduate</small><h4>MD / MS / MDS residents</h4><p>Thesis protocols, data analysis, results chapters and viva preparation.</p></div>
+      <div class="aud reveal" style="--d:.16s"><small>Practice</small><h4>Clinicians &amp; faculty</h4><p>Turning clinical experience and data into publishable manuscripts.</p></div>
+      <div class="aud reveal" style="--d:.24s"><small>Academia</small><h4>PhD scholars &amp; researchers</h4><p>Systematic reviews, meta-analyses and high-impact journal submissions.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Our services</span>
+      <h2>Support for every stage of your research journey.</h2>
+      <p>From developing a research question to preparing a manuscript for submission, our services make research more structured, clear and manageable. Tap any service to see what's included.</p>
+    </div>
+    <div class="svc-grid" id="svcGrid"></div>
+    <div class="integrity-note reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg>
+      <p>Our services provide research guidance, analytical assistance and editorial support. Research integrity, accurate reporting and the client's ownership of their academic work remain central to every project.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Process -->
+<section class="process">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">How it works</span>
+      <h2>A simple, transparent process.</h2>
+      <p>No confusion, no hidden steps. Just a clear path from your first message to a finished, confident piece of work.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="step-n">01</div><h3>Share your project</h3><p>Tell us your topic, current progress, deadline and the help you need.</p></div>
+      <div class="step reveal" style="--d:.08s"><div class="step-n">02</div><h3>Scoping discussion</h3><p>We review your requirements and clarify goals, gaps and priorities with you.</p></div>
+      <div class="step reveal" style="--d:.16s"><div class="step-n">03</div><h3>Tailored plan &amp; quote</h3><p>You receive a clear scope of work, timeline and transparent quote.</p></div>
+      <div class="step reveal" style="--d:.24s"><div class="step-n">04</div><h3>Collaborative work</h3><p>We work with you in defined milestones, with regular updates and explanations.</p></div>
+      <div class="step reveal" style="--d:.32s"><div class="step-n">05</div><h3>Review &amp; finalise</h3><p>Revisions, final checks and support through submission or defence.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Packages -->
+<section id="packages">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Packages</span>
+      <h2>Choose the support that fits your stage.</h2>
+      <p>Curated packages for the most common research needs, each tailored to your project's scope and timeline.</p>
+    </div>
+    <div class="pkg-grid">
+      <div class="pkg reveal">
+        <span class="pkg-for">Getting started</span>
+        <h3>Clarity Session</h3>
+        <p>A focused one-to-one consultation that turns an idea into a clear, researchable plan.</p>
+        <div class="pkg-price">Custom quote</div>
+        <ul><li>One-to-one online consultation</li><li>Topic &amp; research question refinement</li><li>PICO / PICOS framework</li><li>Study design recommendation</li><li>Written next-steps roadmap</li></ul>
+        <a href="#contact" class="btn btn-ghost" data-pkg="Clarity Session">Book a Session</a>
+      </div>
+      <div class="pkg reveal" style="--d:.08s">
+        <span class="pkg-for">MD / MS / MDS &amp; PhD</span>
+        <h3>Thesis Companion</h3>
+        <p>Structured support across your thesis or dissertation, from proposal to viva.</p>
+        <div class="pkg-price">Custom quote</div>
+        <ul><li>Proposal &amp; methodology guidance</li><li>Literature review planning</li><li>Statistical analysis &amp; interpretation</li><li>Tables, figures &amp; formatting</li><li>Editing, referencing &amp; viva preparation</li></ul>
+        <a href="#contact" class="btn btn-ghost" data-pkg="Thesis Companion">Get Started</a>
+      </div>
+      <div class="pkg featured reveal" style="--d:.16s">
+        <span class="badge">Most comprehensive</span>
+        <span class="pkg-for">Systematic reviews</span>
+        <h3>Evidence Synthesis</h3>
+        <p>End-to-end support for rigorous, reproducible systematic reviews and meta-analyses.</p>
+        <div class="pkg-price">Custom quote</div>
+        <ul><li>Protocol &amp; registration guidance</li><li>Multi-database search strategy</li><li>Screening &amp; data-extraction frameworks</li><li>Risk-of-bias &amp; GRADE assessment</li><li>Meta-analysis &amp; forest plots</li><li>PRISMA-compliant reporting</li></ul>
+        <a href="#contact" class="btn btn-light" data-pkg="Evidence Synthesis">Discuss Your Review</a>
+      </div>
+      <div class="pkg reveal" style="--d:.24s">
+        <span class="pkg-for">Completed manuscripts</span>
+        <h3>Publication Ready</h3>
+        <p>Polish, format and position your manuscript for the right journal.</p>
+        <div class="pkg-price">Custom quote</div>
+        <ul><li>Academic editing &amp; proofreading</li><li>Reporting-guideline check</li><li>Journal selection &amp; formatting</li><li>Cover letter preparation</li><li>Reviewer response &amp; resubmission</li></ul>
+        <a href="#contact" class="btn btn-ghost" data-pkg="Publication Ready">Prepare to Publish</a>
+      </div>
+    </div>
+    <p class="pkg-note reveal">Need only statistics, editing or a single service? Every service is also available individually. Pricing depends on scope, complexity and timelines, so share your project for a clear quote.</p>
+  </div>
+</section>
+
+<!-- Insights -->
+<section class="insights" id="insights">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Research insights</span>
+      <h2>Practical guidance for better research.</h2>
+      <p>Short, practical reads on methodology, statistics and publishing, written for busy students and clinicians.</p>
+    </div>
+    <div class="ins-grid" id="insGrid"></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container faq-grid">
+    <div class="faq-side reveal">
+      <div class="section-head" style="margin-bottom:20px">
+        <span class="eyebrow">FAQs</span>
+        <h2>Questions, answered.</h2>
+      </div>
+      <p>Can't find what you're looking for? Send us a message and we'll respond with clear, honest answers.</p>
+      <a href="#contact" class="btn btn-primary">Ask a Question</a>
+    </div>
+    <div class="reveal" style="--d:.1s">
+      <details><summary>Who do you work with?<span class="plus"></span></summary><div class="faq-a">We support medical and dental undergraduates, postgraduate residents (MD, MS, MDS), clinicians, faculty members, PhD scholars and independent researchers, whether it's a first project or a complex meta-analysis.</div></details>
+      <details><summary>Will you write my thesis or paper for me?<span class="plus"></span></summary><div class="faq-a">No. We provide research guidance, analytical assistance and editorial support. You remain the author and owner of your work. Our role is to help you plan, analyse, present and refine it in line with academic integrity expectations and your institution's policies.</div></details>
+      <details><summary>How is pricing decided?<span class="plus"></span></summary><div class="faq-a">Every project is different. After understanding your scope, current progress, complexity and deadline, we share a clear, itemised quote before any work begins, with no hidden charges.</div></details>
+      <details><summary>How long does a project take?<span class="plus"></span></summary><div class="faq-a">Timelines depend on the service. A consultation can be scheduled within days, while a full systematic review may take several weeks. We agree on realistic milestones with you upfront.</div></details>
+      <details><summary>Is my data kept confidential?<span class="plus"></span></summary><div class="faq-a">Yes. Your research data, manuscripts and ideas are handled confidentially and used only for your project. We're happy to sign a confidentiality agreement on request.</div></details>
+      <details><summary>Can you guarantee publication?<span class="plus"></span></summary><div class="faq-a">No ethical service can guarantee acceptance, since editorial decisions rest with journals and peer reviewers. What we do is maximise your manuscript's quality, clarity, compliance and fit with the right journal.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact" id="contact">
+  <div class="container contact-grid">
+    <div class="contact-info reveal">
+      <span class="eyebrow">Contact us</span>
+      <h2>Not sure where to start?</h2>
+      <p>Every research project is different. Tell us about your topic, current progress and goals, and we will help you identify the support that best fits your needs.</p>
+      <div class="contact-links">
+        <a class="c-link" id="igLink" href="#" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></span><span><small>Instagram</small>@the.manuscriptstudio</span></a>
+        <a class="c-link" id="mailLink" href="#"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><span><small>Email</small><span id="mailText"></span></span></a>
+        <a class="c-link" id="waLink" href="#" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></span><span><small>WhatsApp</small>Chat with us directly</span></a>
+      </div>
+    </div>
+
+    <form class="form reveal" id="enquiryForm" style="--d:.1s">
+      <h3>Discuss your project</h3>
+      <p>Share a few details and we'll get back to you with the right next steps.</p>
+      <div class="row">
+        <div class="field"><label for="f-name">Full name</label><input id="f-name" name="name" required placeholder="Dr. Ananya Rao"></div>
+        <div class="field"><label for="f-contact">Email or phone</label><input id="f-contact" name="contact" required placeholder="you@example.com"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label for="f-role">I am a</label>
+          <select id="f-role" name="role"><option>MBBS / BDS student</option><option>PG resident (MD / MS / MDS)</option><option>Clinician / Faculty</option><option>PhD scholar / Researcher</option><option>Other</option></select></div>
+        <div class="field"><label for="f-service">Service needed</label><select id="f-service" name="service"></select></div>
+      </div>
+      <div class="row">
+        <div class="field"><label for="f-stage">Current stage</label>
+          <select id="f-stage" name="stage"><option>Just an idea</option><option>Writing protocol / proposal</option><option>Data collected</option><option>Draft written</option><option>Under review / revision</option></select></div>
+        <div class="field"><label for="f-deadline">Deadline (optional)</label><input id="f-deadline" name="deadline" type="date"></div>
+      </div>
+      <div class="field"><label for="f-msg">Tell us about your project</label><textarea id="f-msg" name="message" required placeholder="Topic, what you've done so far and where you need support…"></textarea></div>
+      <button type="submit" class="btn btn-primary">Send Enquiry <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <p class="form-note">Your details are kept confidential and used only to respond to your enquiry.</p>
+      <div class="form-success" id="formSuccess">Thank you! Your message is ready to send. We'll get back to you soon.</div>
+    </form>
+  </div>
+</section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <a href="#home" class="brand">
+          <svg viewBox="0 0 40 40"><rect width="40" height="40" rx="11" fill="#2D5843"/><path d="M13 9h10l6 6v15a2 2 0 0 1-2 2H13a2 2 0 0 1-2-2V11a2 2 0 0 1 2-2z" fill="#F6F1E8"/><path d="M23 9v6h6" fill="#EADBC2"/><path d="M15 21h10M15 25h7" stroke="#B08A4F" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <div><div class="brand-name">The Manuscript Studio</div><div class="brand-tag">Research · Write · Publish</div></div>
+        </a>
+        <p class="foot-about">Structured research, statistical and publication support for medical and dental students, clinicians and researchers.</p>
+      </div>
+      <div><h5>Explore</h5><ul><li><a href="#about">About Us</a></li><li><a href="#services">Services</a></li><li><a href="#packages">Packages</a></li><li><a href="#insights">Research Insights</a></li><li><a href="#faq">FAQs</a></li></ul></div>
+      <div><h5>Services</h5><ul><li><a href="#services">Research Design</a></li><li><a href="#services">Systematic Reviews</a></li><li><a href="#services">Statistics &amp; Meta-analysis</a></li><li><a href="#services">Manuscript Editing</a></li><li><a href="#services">Thesis Support</a></li></ul></div>
+      <div><h5>Connect</h5><ul><li><a href="#" id="igFoot" target="_blank" rel="noopener">Instagram</a></li><li><a href="#" id="mailFoot">Email</a></li><li><a href="#contact">Discuss Your Project</a></li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="yr"></span> The Manuscript Studio. All rights reserved.</span>
+      <span>Research guidance · Analytical assistance · Editorial support</span>
+    </div>
+  </div>
+</footer>
+
+<a href="#contact" class="fab" id="fab" aria-label="Discuss your project"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><span>Discuss Your Project</span></a>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-box"><button class="modal-close" data-close aria-label="Close">×</button><div id="modalContent"></div></div>
+</div>
+
+<script>
+/* ======= EDIT YOUR DETAILS HERE ======= */
+const CONFIG = {
+  whatsapp: "91XXXXXXXXXX",            // country code + number, no "+" or spaces, e.g. 919876543210
+  email: "hello@themanuscriptstudio.com",
+  instagram: "https://www.instagram.com/the.manuscriptstudio/"
+};
+/* ====================================== */
+
+const svg = p => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const arrow = svg('<path d="M5 12h14M13 6l6 6-6 6"/>');
+const icons = {
+  target: svg('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>'),
+  layers: svg('<path d="M12 2 2 7l10 5 10-5z"/><path d="m2 12 10 5 10-5"/><path d="m2 17 10 5 10-5"/>'),
+  chart: svg('<path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 6-6"/>'),
+  doc: svg('<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M8 13h8M8 17h5"/>'),
+  send: svg('<path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/>'),
+  chat: svg('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>'),
+  cap: svg('<path d="M22 9 12 4 2 9l10 5 10-5z"/><path d="M6 11v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/>')
+};
+
+const services = [
+  {t:"Research Design & Methodology", i:"target", d:"Build a strong foundation for your research project with structured methodological guidance.",
+   items:["Research topic refinement and question development","PICO/PICOS framework development","Study-design selection and methodology planning","Research protocol development","Literature-search strategy planning","Sample-size and statistical-planning guidance"]},
+  {t:"Systematic & Scoping Review Support", i:"layers", d:"Develop rigorous, transparent and reproducible evidence syntheses with support at key stages of the review process.",
+   items:["Systematic and scoping review methodology","Search strategy development across relevant databases","Eligibility criteria and screening frameworks","Data-extraction templates","PRISMA flow diagrams and reporting guidance","Risk-of-bias assessment","GRADE assessment, where appropriate","Evidence synthesis and meta-analysis planning"]},
+  {t:"Statistical Analysis & Meta-analysis", i:"chart", d:"Make your findings meaningful through appropriate statistical methods, clear visualisations and accurate interpretation.",
+   items:["Descriptive and inferential statistics","Statistical test selection and analysis","Meta-analysis and evidence synthesis","Diagnostic accuracy meta-analysis","Heterogeneity assessment","Sensitivity and subgroup analyses, where appropriate","Forest plots and statistical figures","Results interpretation and reporting"]},
+  {t:"Manuscript Development & Academic Editing", i:"doc", d:"Improve the clarity, organisation and scientific presentation of your research manuscript.",
+   items:["Manuscript structure and organisation","Academic language editing and proofreading","Abstract, introduction and discussion refinement","Results presentation and interpretation","Tables, figures and supplementary materials","Referencing and citation checks","Journal-specific formatting","Reporting-guideline checks"]},
+  {t:"Journal Selection & Publication Support", i:"send", d:"Prepare your manuscript for submission to a suitable, reputable scholarly journal.",
+   items:["Journal identification and scope matching","Journal requirements and author-guideline checks","Manuscript formatting","Cover-letter preparation","Submission-readiness assessment","Reviewer-response guidance","Revision and resubmission support"]},
+  {t:"Research Consultation & Scientific Communication", i:"chat", d:"Personalised guidance for research questions, methodological challenges and scientific communication.",
+   items:["One-to-one research consultations","Research-methodology guidance","Support with interpreting published evidence","Conference abstracts and scientific posters","Research presentations and visual summaries","Guidance on communicating research findings clearly"]},
+  {t:"Thesis & Dissertation Support", i:"cap", d:"Structured academic support throughout the planning, analysis and presentation of your thesis or dissertation.",
+   items:["Topic refinement and research-question development","Research proposal and methodology guidance","Literature review planning","Statistical analysis and results interpretation","Tables, figures and data presentation","Academic editing and proofreading","Referencing and formatting","Viva presentation and defence preparation"]}
+];
+
+const insights = [
+  {cat:"Methodology", read:"4 min read", glyph:"Q", grad:"linear-gradient(135deg,#1F3D2E,#2D5843)",
+   title:"PICO, PICOS or PECO? Framing a question reviewers can't fault",
+   ex:"A precise research question shapes your eligibility criteria, search strategy and analysis. Here's how to choose the right framework.",
+   body:["A well-framed question is the single most important decision in a research project. It determines who you study, what you measure and how your results will be judged.",
+         "<strong>PICO</strong> (Population, Intervention, Comparison, Outcome) suits interventional questions. <strong>PICOS</strong> adds Study design, which is especially useful for defining eligibility in systematic reviews. <strong>PECO</strong> replaces Intervention with Exposure for observational and aetiological questions.",
+         "Aim for a question that is specific enough to answer but not so narrow that no studies exist. Compare “Is chlorhexidine effective?” with “In adults with gingivitis, does chlorhexidine mouthwash reduce plaque scores compared with placebo?”. The second immediately tells you what to search for and what to measure."]},
+  {cat:"Systematic reviews", read:"3 min read", glyph:"P", grad:"linear-gradient(135deg,#2D5843,#4B7A5E)",
+   title:"Registering your systematic review: why and when",
+   ex:"Prospective registration protects your review from bias and is increasingly expected by journals.",
+   body:["Registering a systematic review protocol publicly records your question, methods and outcomes before you see the results. This reduces duplication of effort and protects against selective outcome reporting.",
+         "PROSPERO is the most widely used international register for systematic reviews with a health-related outcome. Ideally, register before you begin screening, and certainly before data extraction starts.",
+         "Note that PROSPERO does not accept scoping reviews. For these, consider registering on the Open Science Framework (OSF) or publishing your protocol in a journal."]},
+  {cat:"Statistics", read:"5 min read", glyph:"p", grad:"linear-gradient(135deg,#8C6A3A,#B08A4F)",
+   title:"Choosing the right statistical test: a quick decision guide",
+   ex:"Four questions about your data will point you to the right test far more reliably than guesswork.",
+   body:["Before choosing a test, ask: What type of outcome do I have (continuous, categorical or time-to-event)? How many groups am I comparing? Are the observations independent or paired? Is a continuous outcome reasonably normally distributed?",
+         "Some common pairings: two independent groups with a normal continuous outcome → independent t-test (Mann–Whitney U if non-normal). Paired measurements → paired t-test (Wilcoxon signed-rank if non-normal). Three or more groups → one-way ANOVA (Kruskal–Wallis if non-normal). Categorical outcomes → chi-square test, or Fisher's exact test when expected counts are small.",
+         "Most importantly, plan your analysis in your protocol before collecting data. Choosing tests after seeing the results invites bias and reviewer criticism."]},
+  {cat:"Meta-analysis", read:"4 min read", glyph:"I²", grad:"linear-gradient(135deg,#16261E,#1F3D2E)",
+   title:"Heterogeneity in meta-analysis: reading I² without overreacting",
+   ex:"I² is one of the most quoted and most misread numbers in a meta-analysis. Here's how to interpret it sensibly.",
+   body:["I² estimates the percentage of variability across study results that is due to genuine differences between studies rather than chance.",
+         "The Cochrane Handbook offers deliberately overlapping, rough guides: 0–40% might not be important, 30–60% may represent moderate heterogeneity, 50–90% substantial, and 75–100% considerable. These are not rigid cut-offs.",
+         "Always interpret I² alongside the forest plot itself: are the effects in the same direction? Do confidence intervals overlap? Then explore heterogeneity through pre-specified subgroup or sensitivity analyses, and consider reporting a prediction interval."]},
+  {cat:"Reporting", read:"3 min read", glyph:"✓", grad:"linear-gradient(135deg,#2D5843,#1F3D2E)",
+   title:"Reporting guidelines every clinical researcher should know",
+   ex:"Journals increasingly ask for a completed checklist at submission. Know which one applies to your study.",
+   body:["Reporting guidelines help you describe your study completely and transparently, and many journals require a completed checklist on submission.",
+         "The essentials: <strong>CONSORT</strong> for randomised trials, <strong>SPIRIT</strong> for trial protocols, <strong>STROBE</strong> for observational studies, <strong>PRISMA</strong> for systematic reviews, <strong>STARD</strong> for diagnostic accuracy studies and <strong>CARE</strong> for case reports.",
+         "The EQUATOR Network hosts these and hundreds of other guidelines. Using the right checklist while writing, rather than after, saves time and strengthens your manuscript."]},
+  {cat:"Publishing", read:"4 min read", glyph:"!", grad:"linear-gradient(135deg,#8C6A3A,#6E5330)",
+   title:"Spotting predatory journals before you submit",
+   ex:"Fast acceptance and flattering emails can cost you your paper. Learn the red flags.",
+   body:["Predatory journals charge publication fees without providing genuine peer review or editorial quality, and publishing in one can harm your academic record.",
+         "Red flags include unsolicited, flattering invitations; promises of very rapid acceptance; unclear or hidden fees; vague peer-review descriptions; and indexing or impact claims you cannot verify.",
+         "Always confirm indexing directly on the source, such as Scopus, Web of Science, DOAJ or the NLM Catalog for MEDLINE, rather than trusting the journal's website. The “Think. Check. Submit.” checklist is a useful starting point."]}
+];
+
+/* Render services */
+const svcGrid = document.getElementById('svcGrid');
+svcGrid.innerHTML = services.map((s,i)=>`
+  <button class="svc reveal" style="--d:${(i%4)*.08}s" data-i="${i}">
+    <div class="svc-top"><div class="icon-box">${icons[s.i]}</div><span class="svc-num">0${i+1}</span></div>
+    <h3>${s.t.replace(/&/g,'&amp;')}</h3><p>${s.d}</p>
+    <span class="svc-more">View details ${arrow}</span>
+  </button>`).join('') + `
+  <div class="svc-cta reveal" style="--d:.24s">
+    <div><h3>Not sure where to start?</h3><p style="margin-top:10px">Tell us about your project and we'll recommend the right support.</p></div>
+    <a href="#contact" class="btn btn-primary">Discuss Your Project</a>
+  </div>`;
+
+/* Service select options */
+const sel = document.getElementById('f-service');
+sel.innerHTML = '<option>Not sure yet — need guidance</option>' + services.map(s=>`<option>${s.t.replace(/&/g,'&amp;')}</option>`).join('');
+
+/* Render insights */
+document.getElementById('insGrid').innerHTML = insights.map((a,i)=>`
+  <button class="ins reveal" style="--d:${(i%3)*.08}s" data-a="${i}">
+    <div class="ins-art" style="background:${a.grad}"><span class="tag">${a.cat}</span><span class="glyph">${a.glyph}</span></div>
+    <div class="ins-body"><div class="ins-meta">${a.read}</div><h3>${a.title}</h3><p>${a.ex}</p><span class="svc-more">Read insight ${arrow}</span></div>
+  </button>`).join('');
+
+/* Marquee */
+const tags = ["MBBS & BDS projects","MD / MS / MDS theses","Systematic reviews","Meta-analysis","PRISMA 2020","Statistical analysis","GRADE","Journal submissions","Reviewer responses","Scientific posters"];
+document.getElementById('marquee').innerHTML = tags.map(t=>`<span>${t.replace(/&/g,'&amp;')}</span>`).join('').repeat(2);
+
+/* Contact links */
+const waBase = !/x/i.test(CONFIG.whatsapp);
+document.getElementById('igLink').href = CONFIG.instagram;
+document.getElementById('igFoot').href = CONFIG.instagram;
+document.getElementById('mailLink').href = 'mailto:' + CONFIG.email;
+document.getElementById('mailFoot').href = 'mailto:' + CONFIG.email;
+document.getElementById('mailText').textContent = CONFIG.email;
+const waLink = document.getElementById('waLink');
+if (waBase) waLink.href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent('Hello The Manuscript Studio, I would like to discuss my research project.')}`;
+else waLink.style.display = 'none';
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* Modal */
+const modal = document.getElementById('modal'), modalContent = document.getElementById('modalContent');
+function openModal(html){ modalContent.innerHTML = html; modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; modal.querySelector('.modal-box').scrollTop = 0; }
+function closeModal(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+modal.addEventListener('click', e => { if (e.target.closest('[data-close]')) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+svcGrid.addEventListener('click', e => {
+  const c = e.target.closest('.svc[data-i]'); if (!c) return;
+  const s = services[+c.dataset.i];
+  openModal(`<span class="eyebrow">Service 0${+c.dataset.i+1}</span><h3>${s.t.replace(/&/g,'&amp;')}</h3><p>${s.d}</p>
+    <ul class="modal-list">${s.items.map(x=>`<li>${x}</li>`).join('')}</ul>
+    <button class="btn btn-primary" data-enquire="${c.dataset.i}">Enquire About This Service ${arrow}</button>`);
+});
+document.getElementById('insGrid').addEventListener('click', e => {
+  const c = e.target.closest('.ins'); if (!c) return;
+  const a = insights[+c.dataset.a];
+  openModal(`<span class="eyebrow">${a.cat} · ${a.read}</span><h3>${a.title}</h3>${a.body.map(p=>`<p>${p}</p>`).join('')}
+    <div class="integrity-note" style="margin:24px 0"><p>Need help applying this to your own project? We can guide you step by step.</p></div>
+    <button class="btn btn-primary" data-enquire="">Discuss Your Project ${arrow}</button>`);
+});
+
+const msgBox = document.getElementById('f-msg');
+function goContact(serviceIdx, msg){
+  closeModal(); document.body.classList.remove('menu-open');
+  if (serviceIdx !== '' && serviceIdx != null) sel.selectedIndex = +serviceIdx + 1;
+  if (msg && !msgBox.value) msgBox.value = msg;
+  document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+  setTimeout(()=>document.getElementById('f-name').focus({preventScroll:true}), 900);
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-enquire]');
+  if (b) { e.preventDefault(); goContact(b.dataset.enquire); }
+  const p = e.target.closest('[data-pkg]');
+  if (p) { e.preventDefault(); goContact(null, `I'm interested in the ${p.dataset.pkg} package. `); }
+});
+
+/* Form */
+const form = document.getElementById('enquiryForm');
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const d = new FormData(form);
+  const lines = [
+    'Hello The Manuscript Studio! I would like to discuss my project.', '',
+    `Name: ${d.get('name')}`, `Contact: ${d.get('contact')}`, `I am a: ${d.get('role')}`,
+    `Service needed: ${d.get('service')}`, `Current stage: ${d.get('stage')}`,
+    d.get('deadline') ? `Deadline: ${d.get('deadline')}` : null, '',
+    `Project details: ${d.get('message')}`
+  ].filter(l => l !== null).join('\n');
+  if (waBase) window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(lines)}`, '_blank');
+  else window.location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent('Project enquiry — ' + d.get('name'))}&body=${encodeURIComponent(lines)}`;
+  document.getElementById('formSuccess').classList.add('show');
+});
+
+/* Mobile menu */
+const menuBtn = document.getElementById('menuBtn');
+menuBtn.addEventListener('click', () => {
+  const open = document.body.classList.toggle('menu-open');
+  menuBtn.setAttribute('aria-expanded', open);
+});
+document.querySelectorAll('.mobile-menu a').forEach(a => a.addEventListener('click', () => {
+  document.body.classList.remove('menu-open'); menuBtn.setAttribute('aria-expanded', false);
+}));
+
+/* Scroll effects */
+const header = document.getElementById('header'), progress = document.getElementById('progress'), fab = document.getElementById('fab');
+let ticking = false;
+function onScroll(){
+  const y = window.scrollY, h = document.documentElement.scrollHeight - innerHeight;
+  header.classList.toggle('scrolled', y > 20);
+  progress.style.transform = `scaleX(${h > 0 ? y / h : 0})`;
+  const contactTop = document.getElementById('contact').getBoundingClientRect().top;
+  fab.classList.toggle('show', y > 700 && contactTop > innerHeight * .6);
+  ticking = false;
+}
+addEventListener('scroll', () => { if (!ticking) { requestAnimationFrame(onScroll); ticking = true; } }, {passive:true});
+onScroll();
+
+/* Reveal on scroll */
+const io = new IntersectionObserver(entries => entries.forEach(en => {
+  if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+}), {threshold:.12, rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* Active nav link */
+const links = document.querySelectorAll('.nav-links a');
+const navIO = new IntersectionObserver(entries => entries.forEach(en => {
+  if (en.isIntersecting) links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + en.target.id));
+}), {rootMargin:'-45% 0px -50% 0px'});
+['home','about','services','packages','insights','contact'].forEach(id => navIO.observe(document.getElementById(id)));
+</script>
+</body>
+</html>
